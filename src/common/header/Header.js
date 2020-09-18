@@ -9,7 +9,8 @@ import Typography from '@material-ui/core/Typography';
 import FormControl from '@material-ui/core/FormControl';
 import InputLabel from '@material-ui/core/InputLabel';
 import Input from '@material-ui/core/Input';
-import propTypes from 'prop-types';
+import PropTypes from 'prop-types';
+import FormHelperText from '@material-ui/core/FormHelperText';
 
 const customStyles = {
     content: {
@@ -31,7 +32,7 @@ const TabContainer = function (props) {
 }
 
 TabContainer.propTypes = {
-    children: propTypes.node.isRequired
+    children: PropTypes.node.isRequired
 }
 
 class Header extends Component {
@@ -40,7 +41,9 @@ class Header extends Component {
         super();
         this.state = {
             modalIsOpen: false,
-            value: 0
+            value: 0,
+            username: '',
+            usernameRequired: 'dispNone'
         }
     }
 
@@ -54,6 +57,14 @@ class Header extends Component {
 
     tabChangeHanlder = (event, value) => {
         this.setState({ value })
+    }
+
+    loginClickHandler = () => {
+        this.state.username === "" ? this.setState({usernameRequired: "dispBlock"}) : this.setState({usernameRequired: "dispNone"});
+    }
+
+    inputUsernameChangeHandler = (e) => {
+        this.setState({username: e.target.value})
     }
 
     render() {
@@ -79,13 +90,14 @@ class Header extends Component {
                         <TabContainer>
                             <FormControl required>
                                 <InputLabel htmlFor="username">Username</InputLabel>
-                                <Input id="username" type="text"></Input>
+                                <Input id="username" type="text" username={this.state.username} onChange={this.inputUsernameChangeHandler}></Input>
+                                <FormHelperText className={this.state.usernameRequired}><span className="red">required</span></FormHelperText>
                             </FormControl><br /><br />
                             <FormControl required>
                                 <InputLabel htmlFor="password">Password</InputLabel>
                                 <Input id="password" type="password"></Input>
                             </FormControl><br /><br />
-                            <Button variant="contained" color="primary">LOGIN</Button>
+                            <Button variant="contained" color="primary" onClick={this.loginClickHandler}>LOGIN</Button>
                         </TabContainer>}
                 </Modal>
             </div>
