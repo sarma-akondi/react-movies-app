@@ -65,16 +65,16 @@ class Details extends Component {
 
     starClickHandler = (id) => {
         let starIconList = [];
-        for(let star of this.state.starIcons){
+        for (let star of this.state.starIcons) {
             let starNode = star;
-            if(star.id <= id){
+            if (star.id <= id) {
                 starNode.color = "yellow"
-            } else{
+            } else {
                 starNode.color = "black";
             }
             starIconList.push(starNode);
         }
-        this.setState({starIcons: starIconList})
+        this.setState({ starIcons: starIconList })
     }
 
     render() {
@@ -89,7 +89,7 @@ class Details extends Component {
 
         return (
             <div className="details">
-                <Header />
+                <Header showBookShowButton="true"/>
                 <div className="back">
                     <Typography onClick={this.backtohomeHandler}>&#60; Back to Home</Typography>
                 </div>
